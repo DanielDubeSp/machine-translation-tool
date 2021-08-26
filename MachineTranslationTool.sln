@@ -24,6 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineTranslationTool.Reac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineTranslationTool.API", "MachineTranslationTool.API\MachineTranslationTool.API.csproj", "{0B670F02-2AA8-40A3-95E6-6E81412DAF2D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{95813BF0-2ABA-4AE0-A302-1CDAE08F85E3}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\python-3.9.6-amd64.exe = Binaries\python-3.9.6-amd64.exe
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +55,7 @@ Global
 		{93C0D0F0-1D0B-4C37-9902-984E40C68455} = {7D44EA0E-7D0B-41F6-96B4-AEE61FB391B4}
 		{7491D837-3989-4465-864D-DA69A9D0F20E} = {A43A3177-7558-4123-A21B-589DE041A70E}
 		{0B670F02-2AA8-40A3-95E6-6E81412DAF2D} = {CD8DEFBC-2677-456D-B99E-D4A11470030A}
+		{95813BF0-2ABA-4AE0-A302-1CDAE08F85E3} = {BE5A90C2-A7D1-4E16-9740-E7B8E8EFB932}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D2EF3FF-0C62-49F5-853E-CBE3D1977DDA}
