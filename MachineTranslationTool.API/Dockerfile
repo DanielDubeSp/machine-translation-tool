@@ -6,16 +6,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["MachineTranslationTool.csproj", "."]
-RUN dotnet restore "./MachineTranslationTool.csproj"
+COPY ["MachineTranslationTool.API/MachineTranslationTool.API.csproj", "."]
+RUN dotnet restore "./MachineTranslationTool.API.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "MachineTranslationTool.csproj" -c Release -o /app/build
+RUN dotnet build "MachineTranslationTool.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MachineTranslationTool.csproj" -c Release -o /app/publish
+RUN dotnet publish "MachineTranslationTool.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MachineTranslationTool.dll"]
+ENTRYPOINT ["dotnet", "MachineTranslationTool.API.dll"]
