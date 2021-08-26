@@ -1,7 +1,7 @@
 Install Python >= 3.6
 
 Add user or system environment variable pointing to Python  'pip.exe' folder ( C:\Users\DANIEL.DUBE\AppData\Local\Programs\Python\Python39\Scripts )
-Upgrade Pip -> c:\users\daniel.dube\appdata\local\programs\python\python39\python.exe -m pip install --upgrade pip
+Upgrade Pip -> c:\users\daniel.dube\appdata\local\programs\python\python39\python3 -m pip install --upgrade pip
 
 Execute:
 	-pip3 install google_trans_new

@@ -1,7 +1,16 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+RUN apt-get update -y && apt-get install python3.7 python3-pip -y
+#python3-dev
+
+RUN python3 -m pip install --upgrade pip
+
+RUN pip3 install google_trans_new
+RUN pip3 install requests
+RUN pip3 install six
+# python3 Translate.py
+
 WORKDIR /app
+
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
@@ -18,4 +27,5 @@ RUN dotnet publish "MachineTranslationTool.API.csproj" -c Release -o /app/publis
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY "google_trans_new.py" "/usr/local/lib/python3.7/dist-packages/google_trans_new/."
 ENTRYPOINT ["dotnet", "MachineTranslationTool.API.dll"]
