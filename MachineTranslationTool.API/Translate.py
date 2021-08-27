@@ -1,4 +1,7 @@
-﻿#import sys
+﻿# pip3 install google_trans_new
+# pip3 install requests
+# pip3 install six
+import sys
 
 from google_trans_new import google_translator
 translator = google_translator()
@@ -9,4 +12,4 @@ translate_text = translator.translate("Hola mundo!", lang_src="es", lang_tgt="en
 #print(sys.argv[2])
 #print(sys.argv[3])
 print(translate_text)
-#sys.stdout.flush()
+sys.stdout.flush()

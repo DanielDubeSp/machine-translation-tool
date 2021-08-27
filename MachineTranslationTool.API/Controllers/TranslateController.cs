@@ -1,44 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.IO;
-using System.Diagnostics;
+using Services.MachineTranslationTool.API.Services;
+using System.Threading.Tasks;
 
-namespace MachineTranslationTool.Controllers
+namespace Services.MachineTranslationTool.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/v1")]
     public class TranslateController : ControllerBase
     {
+        private readonly ITranslator translator;
         private readonly ILogger<TranslateController> _logger;
-        private readonly string pyPath = @"C:\Users\DANIEL.DUBE\AppData\Local\Programs\Python\Launcher\py.exe";
 
-        public TranslateController(ILogger<TranslateController> logger)
+        public TranslateController(ITranslator translator, ILogger<TranslateController> logger)
         {
+            this.translator = translator;
             _logger = logger;
         }
 
         /// <summary>
-        /// 
+        ///     Gets translation from source to target language
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="langTgt">en,es,de</param>
+        /// <param name="sourceLang">en,es,de</param>
+        /// <param name="targetLang">en,es,de</param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get(string text, string langTgt)
+        public async Task<IActionResult> GetByParameters(string text, string sourceLang, string targetLang)
         {
-            var testScript = Path.Combine(AppContext.BaseDirectory, "Translate.py");
+            var result = await translator.Translate(text, sourceLang, targetLang);
+            return new OkObjectResult(result);
 
-            ProcessStartInfo start = new()
-            {
-                FileName = pyPath,
-                Arguments = string.Format("{0} {1} {2}", testScript, "\"" + text + "\"", "\"" + langTgt + "\""),
-                UseShellExecute = false,
-                RedirectStandardOutput = true
-            };
-            using Process process = Process.Start(start);
-            using StreamReader reader = process.StandardOutput;
-            string result = reader.ReadToEnd();
+        }
+        /// <summary>
+        ///     Gets translation from source to target language
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="sourceLang">en,es,de</param>
+        /// <param name="targetLang">en,es,de</param>
+        /// <returns></returns>
+        [HttpGet("{sourceLang}/{targetLang}/{text}")]
+        public async Task<IActionResult> GetByRoute(string text, string sourceLang, string targetLang)
+        {
+            var result = await translator.Translate(text, sourceLang, targetLang);
             return new OkObjectResult(result);
 
         }
