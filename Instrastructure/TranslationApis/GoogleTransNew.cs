@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Services.MachineTranslationTool.API.Services
+namespace Instrastructure.TranslationApis
 {
     [Obsolete("Not working anymore")]
-    public class GoogleTransNew : ITranslator
+    public class GoogleTransNew : Domain.Shared.Interfaces.ITranslator
     {
         private readonly string pyPath = @"C:\Users\DANIEL.DUBE\AppData\Local\Programs\Python\Launcher\py.exe";
         public Task<string> Translate(string sourceText, string sourceLang, string targetLang)

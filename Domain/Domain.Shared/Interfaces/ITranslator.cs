@@ -1,7 +1,6 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Services.MachineTranslationTool.API.Services
+namespace Domain.Shared.Interfaces
 {
     public interface ITranslator
     {

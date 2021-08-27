@@ -1,11 +1,9 @@
-﻿
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zaac.GoogleTranslateApi;
 
-namespace Services.MachineTranslationTool.API.Services
+namespace Instrastructure.TranslationApis
 {
-    public class ZaacGoogleTranslate : ITranslator
+    public class ZaacGoogleTranslate : Domain.Shared.Interfaces.ITranslator
     {
         public ZaacGoogleTranslate()
         {
@@ -15,9 +13,7 @@ namespace Services.MachineTranslationTool.API.Services
         {
             var translator = new GoogleTranslator();
             var result2 = await translator.TranslateAsync(sourceText, sourceLang, targetLang);
-
             return result2.TargetText;
         }
-
     }
 }

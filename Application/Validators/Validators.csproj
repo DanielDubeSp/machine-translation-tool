@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Domain.Shared\Domain.Shared.csproj" />
+    <ProjectReference Include="..\CustomExceptions\CustomExceptions.csproj" />
+  </ItemGroup>
+
+</Project>

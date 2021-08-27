@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GoogleTranslateApi" Version="1.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
   </ItemGroup>
@@ -21,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
+    <ProjectReference Include="..\Application\CustomExceptions\CustomExceptions.csproj" />
+    <ProjectReference Include="..\Application\Validators\Validators.csproj" />
+    <ProjectReference Include="..\Instrastructure\TranslationApis\TranslationApis.csproj" />
   </ItemGroup>
 
 </Project>
