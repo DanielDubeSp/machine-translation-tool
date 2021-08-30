@@ -7,7 +7,7 @@ namespace Application.Validators
 {
     public class AllowedLanguagesValidator: IAllowedLanguagesValidator
     {
-        private readonly List<string> allowedList = new()
+        private readonly List<string> allowedList = new List<string>()
         {
             "en", "es", "de"
         };

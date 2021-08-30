@@ -10,8 +10,9 @@ namespace Services.MachineTranslationTool.API.ServicesTests
 {
     public class TranslateServiceTests
     {
+        
         [Fact]
-        public async Task Test_IsOk()
+        public async Task Test_IsOk_Mocked()
         {
             // Arrange
             var translator = new Mock<ITranslator>();
@@ -66,6 +67,26 @@ namespace Services.MachineTranslationTool.API.ServicesTests
             // Assert
 
             Assert.Equal($"Language '{badLang}' is not allowed", actual.Message);
+        }
+        [Fact]
+        public async Task Test_EmptyText_IsOk()
+        {
+            // Arrange
+            var translator = new Mock<ITranslator>();
+            var validator = new AllowedLanguagesValidator();
+            var translatedText = "";
+            translator.Setup(x => x.Translate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(translatedText));
+
+            var srv = new TranslateService(translator.Object, validator);
+
+            // Act
+            var actual = await srv.Translate("", "en", "es");
+
+            // Assert
+            Assert.True(actual.IsOk);
+            Assert.Null(actual.Error);
+            Assert.Equal(translatedText, actual.TranslatedText);
+
         }
     }
 }

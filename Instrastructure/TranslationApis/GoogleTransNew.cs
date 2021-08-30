@@ -14,7 +14,7 @@ namespace Instrastructure.TranslationApis
         {
             var testScript = Path.Combine(AppContext.BaseDirectory, "Translate.py");
 
-            ProcessStartInfo start = new()
+            var start = new ProcessStartInfo()
             {
                 FileName = pyPath,
                 Arguments = string.Format("{0} {1} {2} {3}", testScript, "\"" + sourceText + "\"", "\"" + sourceLang + "\"", "\"" + targetLang + "\""),
@@ -31,7 +31,7 @@ namespace Instrastructure.TranslationApis
         {
             var testScript = Path.Combine(AppContext.BaseDirectory, "Translate.py");
 
-            ProcessStartInfo start = new()
+            var  start = new ProcessStartInfo()
             {
                 FileName = pyPath,
                 Arguments = string.Format("{0} {1} {2}", testScript, "\"" + sourceText + "\"", "\"" + targetLang + "\""),

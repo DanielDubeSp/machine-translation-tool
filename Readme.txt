@@ -1,0 +1,1 @@
+Install extension 'Specflow for Visual Studio 2019' ( Extensions/Manage extensions )

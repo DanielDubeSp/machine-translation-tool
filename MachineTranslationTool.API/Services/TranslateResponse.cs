@@ -6,8 +6,8 @@ namespace Services.MachineTranslationTool.API.Services
     /// </summary>
     public sealed class TranslateResponse
     {
-        public string TranslatedText { get; init; }
-        public string Error { get; init; }
+        public string TranslatedText { get; set; }
+        public string Error { get; set; }
         public bool IsOk => Error == null;
     }
 }
