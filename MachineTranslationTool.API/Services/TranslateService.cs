@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Services.MachineTranslationTool.API.Services
 {
-    public class TranslateService : ITranslateService
+    public sealed class TranslateService : ITranslateService
     {
         private readonly ITranslator translator;
         private readonly IAllowedLanguagesValidator allowedLanguagesValidator;
@@ -15,19 +15,25 @@ namespace Services.MachineTranslationTool.API.Services
             this.translator = translator;
             this.allowedLanguagesValidator = allowedLanguagesValidator;
         }
-        public async Task<string> Translate(string sourceText, string sourceLang, string targetLang)
+        public async Task<TranslateResponse> Translate(string sourceText, string sourceLang, string targetLang)
         {
             // TODO: Move to MiddelWare?
             allowedLanguagesValidator.Validate(sourceText, sourceLang, targetLang);
 
             try
             {
-                return await translator.Translate(sourceText, sourceLang, targetLang);
+                return new TranslateResponse
+                {
+                    TranslatedText = await translator.Translate(sourceText, sourceLang, targetLang)
+                };
             }
             catch (Exception ex)
             {
                 // TODO: Log Exception ex.Message
-                throw new TranslateException("Translation error");
+                return new TranslateResponse
+                {
+                    Error = "Translation error"
+                };
             }
         }
     }

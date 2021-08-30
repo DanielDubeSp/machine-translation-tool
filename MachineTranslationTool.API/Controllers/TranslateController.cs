@@ -23,13 +23,13 @@ namespace Services.MachineTranslationTool.Controllers
         }
 
         /// <summary>
-        /// Gets translation from source to target language specifiyng parameters
+        ///     Gets translation from source to target language specifiyng parameters
         /// </summary>
         /// <param name="text">The text to be translated</param>
         /// <param name="sourceLang">en,es,de</param>
         /// <param name="targetLang">en,es,de</param>
         /// <remarks>
-        /// Sample request:
+        /// Request example:
         ///
         ///     GET /api/translate/v1/?text=This is my text&amp;sourceLang=en&amp;targetLang=es
         ///
@@ -46,26 +46,15 @@ namespace Services.MachineTranslationTool.Controllers
 
         public async Task<IActionResult> GetByParameters(string text, string sourceLang, string targetLang)
         {
-            try
-            {
-                var result = await translateService.Translate(text, sourceLang, targetLang);
-                return new OkObjectResult(result);
-            }
-            catch (TranslateException ex)
-            {
-                return Problem(title: "Error", detail: ex.Message, statusCode: StatusCodes.Status500InternalServerError);
-            }
-            catch (ArgumentNullException ex)
-            {
-                return Problem(title: "Error", detail: ex.Message, statusCode: StatusCodes.Status500InternalServerError);
-            }
-
+            return await GenericResult(text, sourceLang, targetLang);
         }
+
+
         /// <summary>
-        /// Gets translation from source to target language by route
+        ///     Gets translation from source to target language by route
         /// </summary>
         /// <remarks>
-        /// Sample request:
+        /// Request example:
         ///
         ///     GET /api/translate/v1/en/es/This is my text
         ///
@@ -83,12 +72,18 @@ namespace Services.MachineTranslationTool.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByRoute(string text, string sourceLang, string targetLang)
         {
+            return await GenericResult(text, sourceLang, targetLang);
+        }
+
+
+        private async Task<IActionResult> GenericResult(string text, string sourceLang, string targetLang)
+        {
             try
             {
                 var result = await translateService.Translate(text, sourceLang, targetLang);
-                return new OkObjectResult(result);
+                return result.IsOk ? new OkObjectResult(result.TranslatedText) : Problem(result.Error, statusCode: StatusCodes.Status500InternalServerError);
             }
-            catch (TranslateException ex)
+            catch (Exception ex)
             {
                 return Problem(title: "Error", detail: ex.Message, statusCode: StatusCodes.Status500InternalServerError);
             }
