@@ -7,7 +7,7 @@ namespace Application.Validators
 {
     public class AllowedLanguagesValidator: IAllowedLanguagesValidator
     {
-        private List<string> allowedList = new List<string>
+        private readonly List<string> allowedList = new()
         {
             "en", "es", "de"
         };
@@ -18,8 +18,12 @@ namespace Application.Validators
 
         public void Validate(string sourceText, string sourceLang, string targetLang)
         {
-            if (string.IsNullOrEmpty(sourceText) || string.IsNullOrEmpty(sourceLang) || string.IsNullOrEmpty(targetLang))
-                throw new ArgumentNullException("Please, provide all the arguments");
+            if (string.IsNullOrEmpty(sourceText))
+                return;
+            if (string.IsNullOrEmpty(sourceLang))
+                throw new ArgumentNullException("Please, provide source language");
+            if (string.IsNullOrEmpty(targetLang))
+                throw new ArgumentNullException("Please, provide target language");
 
             if (!Allowed(sourceLang))
                 throw new NotAllowedLanguageException(sourceLang);
