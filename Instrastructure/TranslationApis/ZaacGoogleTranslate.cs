@@ -3,7 +3,7 @@ using Zaac.GoogleTranslateApi;
 
 namespace Instrastructure.TranslationApis
 {
-    public class ZaacGoogleTranslate : Domain.Shared.Interfaces.ITranslator
+    public sealed class ZaacGoogleTranslate : Domain.Shared.Interfaces.ITranslator
     {
         public ZaacGoogleTranslate()
         {
