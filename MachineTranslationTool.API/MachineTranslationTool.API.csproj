@@ -1,28 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
-    <AssemblyName>Services.MachineTranslationTool.API</AssemblyName>
-    <RootNamespace>Services.MachineTranslationTool.API</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+		<AssemblyName>Services.MachineTranslationTool.API</AssemblyName>
+		<RootNamespace>Services.MachineTranslationTool.API</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Translate.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Translate.py">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Application\CustomExceptions\CustomExceptions.csproj" />
-    <ProjectReference Include="..\Application\Validators\Validators.csproj" />
-    <ProjectReference Include="..\Instrastructure\TranslationApis\TranslationApis.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Application\CustomExceptions\CustomExceptions.csproj" />
+		<ProjectReference Include="..\Application\Validators\Validators.csproj" />
+		<ProjectReference Include="..\Instrastructure\TranslationApis\TranslationApis.csproj" />
+	</ItemGroup>
 
 </Project>

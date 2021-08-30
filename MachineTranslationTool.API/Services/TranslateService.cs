@@ -17,7 +17,7 @@ namespace Services.MachineTranslationTool.API.Services
         }
         public async Task<string> Translate(string sourceText, string sourceLang, string targetLang)
         {
-
+            // TODO: Move to MiddelWare?
             allowedLanguagesValidator.Validate(sourceText, sourceLang, targetLang);
 
             try

@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Services.MachineTranslationTool.API.Services;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace Services.MachineTranslationTool
 {
@@ -34,7 +36,7 @@ namespace Services.MachineTranslationTool
                 c.SwaggerDoc("translate_services",
                     new OpenApiInfo
                     {
-                        Title = "MachineTranslationTool",
+                        Title = "Machine Translation Tool",
                         Description = "Translate operations",
                         Version = "v1",
                         TermsOfService = new Uri("https://example.com/terms"),
@@ -45,6 +47,10 @@ namespace Services.MachineTranslationTool
                             Url = new Uri("https://twitter.com/bflores"),
                         },
                     });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
