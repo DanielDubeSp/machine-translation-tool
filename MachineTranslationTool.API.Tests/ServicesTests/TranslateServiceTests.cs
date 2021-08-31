@@ -10,7 +10,8 @@ namespace Services.MachineTranslationTool.API.ServicesTests
 {
     public class TranslateServiceTests
     {
-        
+        [Trait("Type", "Translate_Services")]
+        [Trait("Version", "1.0")]
         [Fact]
         public async Task Test_IsOk_Mocked()
         {
@@ -31,6 +32,9 @@ namespace Services.MachineTranslationTool.API.ServicesTests
             Assert.Equal(translatedText, actual.TranslatedText);
 
         }
+
+        [Trait("Type", "Translate_Services")]
+        [Trait("Version", "1.0")]
         [Fact]
         public async Task Test_SourceLang_IsNotOk()
         {
@@ -50,6 +54,9 @@ namespace Services.MachineTranslationTool.API.ServicesTests
             Assert.Equal($"Language '{badLang}' is not allowed", actual.Message);
 
         }
+
+        [Trait("Type", "Translate_Services")]
+        [Trait("Version", "1.0")]
         [Fact]
         public async Task Test_TargetLang_IsNotOk()
         {
@@ -68,6 +75,9 @@ namespace Services.MachineTranslationTool.API.ServicesTests
 
             Assert.Equal($"Language '{badLang}' is not allowed", actual.Message);
         }
+
+        [Trait("Type", "Translate_Services")]
+        [Trait("Version", "1.1")]
         [Fact]
         public async Task Test_EmptyText_IsOk()
         {

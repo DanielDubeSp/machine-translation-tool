@@ -8,6 +8,8 @@ namespace Application.UnitTests
 {
     public class ValidatorsTests
     {
+        [Trait("Type", "Validators")]
+        [Trait("Version", "1.0")]
         [Fact]
         public void Test_Allowed_Lang_Validator()
         {
@@ -21,6 +23,9 @@ namespace Application.UnitTests
             Assert.True(true);
 
         }
+
+        [Trait("Type", "Validators")]
+        [Trait("Version", "1.0")]
         [Fact]
         public void Test_Allowed_Lang_Validator_Null_Text()
         {
@@ -34,6 +39,9 @@ namespace Application.UnitTests
             Assert.True(true);
 
         }
+
+        [Trait("Type", "Validators")]
+        [Trait("Version", "1.0")]
         [Fact]
         public void Test_Allowed_Lang_Validator_Empty_Text()
         {
@@ -47,6 +55,9 @@ namespace Application.UnitTests
             Assert.True(true);
 
         }
+
+        [Trait("Type", "Validators")]
+        [Trait("Version", "1.0")]
         [Fact]
         public void Test_Allowed_Lang_Validator_Null_Src_Lang()
         {
@@ -61,6 +72,9 @@ namespace Application.UnitTests
             Assert.Equal(expetedExceptionMessage, actual.Message);
 
         }
+
+        [Trait("Type", "Validators")]
+        [Trait("Version", "1.0")]
         [Fact]
         public void Test_Allowed_Lang_Validator_Null_Target_Lang()
         {
@@ -75,6 +89,9 @@ namespace Application.UnitTests
             Assert.Equal(expetedExceptionMessage, actual.Message);
 
         }
+
+        [Trait("Type", "Validators")]
+        [Trait("Version", "1.1")]
         [Fact]
         public void Test_Allowed_Lang_Validator_Bad_Source_Lang()
         {
@@ -88,6 +105,9 @@ namespace Application.UnitTests
             Assert.Equal($"Language '{badLang}' is not allowed", actual.Message);
 
         }
+
+        [Trait("Type", "Validators")]
+        [Trait("Version", "1.1")]
         [Fact]
         public void Test_Allowed_Lang_Validator_Bad_Target_Lang()
         {
