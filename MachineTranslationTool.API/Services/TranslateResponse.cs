@@ -6,8 +6,34 @@ namespace Services.MachineTranslationTool.API.Services
     /// </summary>
     public sealed class TranslateResponse
     {
-        public string TranslatedText { get; set; }
-        public string Error { get; set; }
+        public TranslateResponse(string translatedText)
+        {
+            TranslatedText = translatedText;
+        }
+        private TranslateResponse()
+        {
+
+        }
+        public static TranslateResponse TranslateResponseError(string error) // Error builder
+        {
+            return new TranslateResponse
+            {
+                Error = error
+            };
+        }
+        /// <summary>
+        ///     Gets translated text. Null if there is an error
+        /// </summary>
+        public string TranslatedText { get; }
+
+        /// <summary>
+        ///     Gets error text. Null when there is no errors
+        /// </summary>
+        public string Error { get; private set; }
+
+        /// <summary>
+        ///     Gets the response status
+        /// </summary>
         public bool IsOk => Error == null;
     }
 }

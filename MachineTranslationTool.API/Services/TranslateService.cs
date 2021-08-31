@@ -1,5 +1,4 @@
-﻿using Application.CustomExceptions;
-using Domain.Shared.Interfaces;
+﻿using Domain.Shared.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -22,18 +21,13 @@ namespace Services.MachineTranslationTool.API.Services
 
             try
             {
-                return new TranslateResponse
-                {
-                    TranslatedText = await translator.Translate(sourceText, sourceLang, targetLang)
-                };
+                return new TranslateResponse(await translator.Translate(sourceText, sourceLang, targetLang));
+
             }
             catch (Exception ex)
             {
                 // TODO: Log Exception ex.Message
-                return new TranslateResponse
-                {
-                    Error = "Translation error"
-                };
+                return TranslateResponse.TranslateResponseError("Translation error");
             }
         }
     }
