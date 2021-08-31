@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Services.MachineTranslationTool.API.Services;
 using System;
 using System.IO;
@@ -26,9 +28,21 @@ namespace Services.MachineTranslationTool
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddSingleton<Serilog.ILogger>(x =>
+            {
+                return new LoggerConfiguration().ReadFrom.Configuration(Configuration).CreateLogger();
+            });
             services.AddSingleton<IAllowedLanguagesValidator, AllowedLanguagesValidator>();
-            services.AddTransient<ITranslator, ZaacGoogleTranslate>();
+
             services.AddTransient<ITranslateService, TranslateService>();
+
+            // Decide on runtime startup wich translator inject
+            if (true)
+                services.AddTransient<ITranslator, ZaacGoogleTranslate>();
+            else
+                services.AddTransient<ITranslator, GoogleTransNew>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -54,7 +68,6 @@ namespace Services.MachineTranslationTool
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

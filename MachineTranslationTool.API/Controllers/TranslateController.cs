@@ -1,7 +1,6 @@
-﻿using Application.CustomExceptions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using Services.MachineTranslationTool.API.Services;
 using System;
 using System.Net.Mime;
@@ -14,12 +13,12 @@ namespace Services.MachineTranslationTool.Controllers
     public class TranslateController : ControllerBase
     {
         private readonly ITranslateService translateService;
-        private readonly ILogger<TranslateController> _logger;
+        private readonly ILogger logger;
 
-        public TranslateController(ITranslateService translateService, ILogger<TranslateController> logger)
+        public TranslateController(ITranslateService translateService, ILogger logger)
         {
             this.translateService = translateService;
-            _logger = logger;
+            this.logger = logger.ForContext<TranslateController>();
         }
 
         /// <summary>
@@ -46,6 +45,8 @@ namespace Services.MachineTranslationTool.Controllers
 
         public async Task<IActionResult> GetByParameters(string text, string sourceLang, string targetLang)
         {
+            logger.Debug("Starting GetByParameters");
+            logger.Verbose("SerializedData: Parameters -> {parameters}", new { text, sourceLang, targetLang });
             return await GenericResult(text, sourceLang, targetLang);
         }
 
@@ -72,6 +73,9 @@ namespace Services.MachineTranslationTool.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByRoute(string text, string sourceLang, string targetLang)
         {
+            logger.Debug("Starting GetByRoute");
+            logger.Verbose("SerializedData: Parameters -> {parameters}", new { text, sourceLang, targetLang });
+
             return await GenericResult(text, sourceLang, targetLang);
         }
 
@@ -81,11 +85,20 @@ namespace Services.MachineTranslationTool.Controllers
             try
             {
                 var result = await translateService.Translate(text, sourceLang, targetLang);
+
+                logger.Information("Obtained result: {result}", new { result.IsOk, result.Error });
+                logger.Verbose($"SerializedData: Translated from '{sourceLang}' to '{targetLang}'");
+                logger.Verbose($"SerializedData: '{text}' to '{result.TranslatedText}'");
+
                 return result.IsOk ? new OkObjectResult(result.TranslatedText) : Problem(result.Error, statusCode: StatusCodes.Status500InternalServerError);
             }
             catch (Exception ex)
             {
                 return Problem(title: "Error", detail: ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            }
+            finally
+            {
+
             }
         }
     }
