@@ -17,9 +17,7 @@ namespace Services.MachineTranslationTool.API.ServicesTests
         public TranslateServiceTests()
         {
             loggerMock = new Mock<ILogger>();
-            loggerMock.Setup(x => x.ForContext<It.IsAnyType>()).Returns(loggerMock.Object);
-            loggerMock.Setup(x => x.Error(It.IsAny<string>()))
-                .Callback((string messageTemplate) => { });
+            loggerMock.Setup(x => x.ForContext<It.IsAnyType>()).Returns(loggerMock.Object); // Return same mocked object when extension 'ForContext' is called
         }
 
         [Trait("Type", "Translate_Services")]
@@ -51,7 +49,6 @@ namespace Services.MachineTranslationTool.API.ServicesTests
             loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Exactly(3));
             loggerMock.Verify(x => x.Verbose(It.IsAny<string>()), Times.Exactly(2));
             loggerMock.Verify(x => x.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Never);
-
         }
 
 
@@ -82,7 +79,6 @@ namespace Services.MachineTranslationTool.API.ServicesTests
             loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Exactly(2));
             loggerMock.Verify(x => x.Verbose(It.IsAny<string>()), Times.Exactly(1));
             loggerMock.Verify(x => x.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Never);
-
         }
 
         [Trait("Type", "Translate_Services")]
@@ -91,9 +87,18 @@ namespace Services.MachineTranslationTool.API.ServicesTests
         public async Task Test_Translator_Throws_Exception()
         {
             // Arrange
+            var loggerExceptionMessage = string.Empty;
+            var expectedExceptionMessage = "Some exception message";
+            var exception = new Exception(expectedExceptionMessage);
+
             var translator = new Mock<ITranslator>();
             var validator = new AllowedLanguagesValidator();
-            translator.Setup(x => x.Translate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Throws<Exception>();
+            translator.Setup(x => x.Translate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Throws(exception);
+            loggerMock.Setup(x => x.Error(It.IsAny<Exception>(), It.IsAny<string>()))
+                .Callback((Exception ex, string message) =>
+                {
+                    loggerExceptionMessage = message; // Retrieve message sent to the mocked logger
+                });
             var srv = new TranslateService(translator.Object, validator, loggerMock.Object);
 
             // Act
@@ -102,6 +107,7 @@ namespace Services.MachineTranslationTool.API.ServicesTests
             // Assert
             Assert.False(actual.IsOk);
             Assert.NotNull(actual.Error);
+            Assert.Equal(expectedExceptionMessage, loggerExceptionMessage);
 
             // Verify mocked methods called
             translator.Verify(x => x.Translate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
@@ -110,7 +116,6 @@ namespace Services.MachineTranslationTool.API.ServicesTests
             loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Exactly(3));
             loggerMock.Verify(x => x.Verbose(It.IsAny<string>()), Times.Exactly(1));
             loggerMock.Verify(x => x.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Once);
-
         }
 
 
