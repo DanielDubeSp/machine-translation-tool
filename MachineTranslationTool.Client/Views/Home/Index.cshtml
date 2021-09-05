@@ -1,0 +1,33 @@
+﻿@{ Layout = null; }
+<html>
+<head>
+    <title>Machine translation tool React client</title>
+</head>
+<body>
+    @Html.React("LangDropDown", new
+    {
+        dropDownName = "Source language",
+        id= "sourceLang"
+    })
+    @Html.React("LangDropDown", new
+    {
+        dropDownName = "Target language",
+        id = "targetLang"
+    })
+    @Html.React("TextToTranslate", new
+    {
+        text = "",
+        url = Url.Action("translate")
+    })
+    @Html.React("TranslatedText", new
+    {
+        id = "translatedText"
+    })
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.0/umd/react.development.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.0/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+    <script src="@Url.Content("~/js/translator.jsx")"></script>
+    @Html.ReactInitJavaScript()
+</body>
+</html>

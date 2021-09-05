@@ -94,6 +94,7 @@ namespace Services.MachineTranslationTool.Controllers
             }
             catch (Exception ex)
             {
+                logger.Error(ex, ex.Message);
                 return Problem(title: "Error", detail: ex.Message, statusCode: StatusCodes.Status500InternalServerError);
             }
             finally
