@@ -4,8 +4,8 @@
     "MachineTranslationTool.Client": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5001",
-      "applicationUrl": "http://localhost:5001",
+      "launchUrl": "http://localhost:5010",
+      "applicationUrl": "http://localhost:5010",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

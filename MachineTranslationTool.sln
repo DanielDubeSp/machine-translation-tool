@@ -25,6 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineTranslationTool.API"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{95813BF0-2ABA-4AE0-A302-1CDAE08F85E3}"
 	ProjectSection(SolutionItems) = preProject
+		Binaries\chromedriver_92.0.4515.107.exe = Binaries\chromedriver_92.0.4515.107.exe
 		Binaries\python-3.9.6-amd64.exe = Binaries\python-3.9.6-amd64.exe
 	EndProjectSection
 EndProject
@@ -53,6 +54,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTests.BDD", "MachineTranslationTool.API.Tests\ServiceTests.BDD\ServiceTests.BDD.csproj", "{9D9F14DF-3083-4773-91DC-D6196B4E4416}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineTranslationTool.Client", "MachineTranslationTool.Client\MachineTranslationTool.Client.csproj", "{624EF457-E790-4432-BABE-4015C29E9018}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumTests", "MachineTranslationTool.Client.Tests\SeleniumTests\SeleniumTests.csproj", "{627B7E46-F469-4570-BC95-9B6333BC128F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +99,10 @@ Global
 		{624EF457-E790-4432-BABE-4015C29E9018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{624EF457-E790-4432-BABE-4015C29E9018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{624EF457-E790-4432-BABE-4015C29E9018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{627B7E46-F469-4570-BC95-9B6333BC128F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{627B7E46-F469-4570-BC95-9B6333BC128F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{627B7E46-F469-4570-BC95-9B6333BC128F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{627B7E46-F469-4570-BC95-9B6333BC128F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +128,7 @@ Global
 		{FB211FDC-00AA-43CA-92D5-BE3B2ACD0AD0} = {ADE836F3-EF43-4037-9748-B9AAC36BD8DA}
 		{9D9F14DF-3083-4773-91DC-D6196B4E4416} = {ADE836F3-EF43-4037-9748-B9AAC36BD8DA}
 		{624EF457-E790-4432-BABE-4015C29E9018} = {A43A3177-7558-4123-A21B-589DE041A70E}
+		{627B7E46-F469-4570-BC95-9B6333BC128F} = {2AA020D9-B416-44D7-8B51-44E11A40FC78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D2EF3FF-0C62-49F5-853E-CBE3D1977DDA}

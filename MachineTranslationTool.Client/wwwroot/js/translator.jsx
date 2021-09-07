@@ -37,7 +37,7 @@ class TextToTranslate extends React.Component {
         var sourceLangValue = sourceLang.value;
         var targetLangValue = targetLang.value;
         var xhr = new XMLHttpRequest();
-        xhr.open('get', this.props.url + '?sourceLang=' + sourceLangValue + '&targetLang=' + targetLangValue + '&sourceText=' + this.state.text , false);
+        xhr.open('get', this.props.url + '?sourceLang=' + sourceLangValue + '&targetLang=' + targetLangValue + '&sourceText=' + this.state.text, false);
         xhr.onload = function (e) {
             sourceLang = document.getElementById('sourceLang');
             targetLang = document.getElementById('targetLang');
@@ -55,12 +55,13 @@ class TextToTranslate extends React.Component {
             <div>
                 <form className="textToTranslate">
                     <input
+                        id="text"
                         type="text"
                         placeholder="Put your text here..."
                         value={this.state.text}
                         onChange={this.handleTextChange}
                     />
-                    <button onClick={this.handleClick}>
+                    <button id="translateBtn" onClick={this.handleClick}>
                         Translate
                     </button>
                 </form>
